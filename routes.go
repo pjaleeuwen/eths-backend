@@ -1,18 +1,8 @@
 package main
 
-import "net/http"
-
-var routes = Routes{
-	{
-		Pattern: "/sign-up",
-		Handler: SignUpHandler,
-		Method: "POST",
-	},
-}
-
-type Routes []Route
-type Route struct {
-	Pattern string
-	Handler http.HandlerFunc
-	Method string
+func (s *server) routes() {
+	s.router.HandleFunc("/servers", s.handleGetServers()).Methods("GET")
+	s.router.HandleFunc("/servers", s.handlePostServers()).Methods("POST")
+	s.router.HandleFunc("/servers/:serverId", s.handleGetServer()).Methods("GET")
+	s.router.HandleFunc("/servers/:serverId", s.handlePutServer()).Methods("PUT")
 }

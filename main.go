@@ -1,14 +1,14 @@
 package main
 
-import (
-	"fmt"
-	"log"
-	"net/http"
-)
+import "github.com/gorilla/mux"
 
 func main() {
-	router := createRouter()
+	srv := &server{
+		port: ":8080",
+		db: database(),
+		router: mux.NewRouter(),
+		email: nil,
+	}
 
-	fmt.Println("running on port 8081")
-	log.Fatal(http.ListenAndServe(":8081", router))
+	srv.start()
 }
